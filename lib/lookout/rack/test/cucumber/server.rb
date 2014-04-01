@@ -6,8 +6,8 @@ module Lookout::Rack::Test::Cucumber
     def app
       return @app if @app
 
-      klass = ::Lookout::Rack::Test.app || $application_class
-      @app = klass.new if klass
+      app_or_klass = ::Lookout::Rack::Test.app || $application_class
+      @app = app_or_klass.respond_to?(:new) ? app_or_klass.new : app_or_klass
     end
   end
 end
